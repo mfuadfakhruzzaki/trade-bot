@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  # Trading Bot Service
+  trading-bot:
+    build: .
+    container_name: trading-bot
+    restart: unless-stopped
+    environment:
+      # Bitget API
+      - BITGET_API_KEY=${BITGET_API_KEY}
+      - BITGET_API_SECRET=${BITGET_API_SECRET}
+      - BITGET_PASSWORD=${BITGET_PASSWORD}
+
+      # Trading Config
+      - TRADING_PAIR=${TRADING_PAIR:-SOL/USDT:USDT}
+      - INITIAL_CAPITAL=${INITIAL_CAPITAL:-100}
+      - LEVERAGE=${LEVERAGE:-5}
+
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+
+      # Model
+      - MODEL_TYPE=${MODEL_TYPE:-xgboost}
+      - ENVIRONMENT=production
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./model:/app/model
+      - ./monitoring/dashboard_data.json:/app/monitoring/dashboard_data.json
+    command: python main.py
+    networks:
+      - trading-network
+    depends_on:
+      - dashboard
+
+  # Dashboard Service
+  dashboard:
+    build: .
+    container_name: trading-dashboard
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs
+      - ./monitoring/dashboard_data.json:/app/monitoring/dashboard_data.json
+    command: python run_dashboard.py --host 0.0.0.0 --port 5000
+    networks:
+      - trading-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  trading-network:
+    driver: bridge
+
+volumes:
+  logs:
+  data:
+  model:

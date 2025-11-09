@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trading Bot Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header h1 {
+        color: #667eea;
+        font-size: 28px;
+      }
+
+      .status-badge {
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .status-running {
+        background: #10b981;
+        color: white;
+      }
+
+      .status-stopped {
+        background: #ef4444;
+        color: white;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .metric-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .metric-label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+
+      .metric-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .metric-change {
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      .positive {
+        color: #10b981;
+      }
+
+      .negative {
+        color: #ef4444;
+      }
+
+      .chart-container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .chart-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .table-container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      tr:hover {
+        background: #f8f9fa;
+      }
+
+      .signal-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .signal-buy {
+        border-left: 4px solid #10b981;
+      }
+
+      .signal-sell {
+        border-left: 4px solid #ef4444;
+      }
+
+      .signal-hold {
+        border-left: 4px solid #f59e0b;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .refresh-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10b981;
+        margin-left: 10px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div>
+          <h1>🤖 Trading Bot Dashboard</h1>
+          <small
+            >Real-time Monitoring <span class="refresh-indicator"></span
+          ></small>
+        </div>
+        <div id="bot-status" class="status-badge status-stopped">Stopped</div>
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Capital</div>
+          <div class="metric-value" id="capital">$0.00</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">PnL</div>
+          <div class="metric-value" id="pnl">$0.00</div>
+          <div class="metric-change" id="pnl-percent">0.00%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Trades</div>
+          <div class="metric-value" id="total-trades">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Win Rate</div>
+          <div class="metric-value" id="win-rate">0%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Open Positions</div>
+          <div class="metric-value" id="open-positions">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Profit Factor</div>
+          <div class="metric-value" id="profit-factor">0.00</div>
+        </div>
+      </div>
+
+      <!-- Last Signal -->
+      <div id="signal-card" class="signal-card signal-hold">
+        <div class="chart-title">Last Trading Signal</div>
+        <div id="signal-content">No signal yet</div>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid-2">
+        <div class="chart-container">
+          <div class="chart-title">Equity Curve</div>
+          <canvas id="equityChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <div class="chart-title">PnL Distribution</div>
+          <canvas id="pnlChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Trade History -->
+      <div class="table-container">
+        <div class="chart-title">Recent Trades</div>
+        <table id="trades-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Side</th>
+              <th>Entry</th>
+              <th>Exit</th>
+              <th>PnL</th>
+              <th>Return %</th>
+            </tr>
+          </thead>
+          <tbody id="trades-body">
+            <tr>
+              <td colspan="6" style="text-align: center">No trades yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Chart instances
+      let equityChart, pnlChart;
+
+      // Initialize charts
+      function initCharts() {
+        const equityCtx = document
+          .getElementById("equityChart")
+          .getContext("2d");
+        equityChart = new Chart(equityCtx, {
+          type: "line",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: "Equity",
+                data: [],
+                borderColor: "#667eea",
+                backgroundColor: "rgba(102, 126, 234, 0.1)",
+                tension: 0.4,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                ticks: {
+                  callback: function (value) {
+                    return "$" + value.toFixed(2);
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        const pnlCtx = document.getElementById("pnlChart").getContext("2d");
+        pnlChart = new Chart(pnlCtx, {
+          type: "bar",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: "PnL",
+                data: [],
+                backgroundColor: function (context) {
+                  const value = context.dataset.data[context.dataIndex];
+                  return value >= 0 ? "#10b981" : "#ef4444";
+                },
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return "$" + value.toFixed(2);
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      // Update dashboard data
+      async function updateDashboard() {
+        try {
+          // Fetch status
+          const statusRes = await fetch("/api/status");
+          const status = await statusRes.json();
+
+          // Update status badge
+          const statusBadge = document.getElementById("bot-status");
+          statusBadge.textContent = status.bot_status;
+          statusBadge.className = `status-badge status-${status.bot_status}`;
+
+          // Update metrics
+          document.getElementById("capital").textContent =
+            "$" + status.capital.toFixed(2);
+
+          const pnlElement = document.getElementById("pnl");
+          pnlElement.textContent = "$" + status.pnl.toFixed(2);
+          pnlElement.className =
+            "metric-value " + (status.pnl >= 0 ? "positive" : "negative");
+
+          const pnlPercentElement = document.getElementById("pnl-percent");
+          pnlPercentElement.textContent = status.pnl_percent.toFixed(2) + "%";
+          pnlPercentElement.className =
+            "metric-change " + (status.pnl >= 0 ? "positive" : "negative");
+
+          document.getElementById("total-trades").textContent =
+            status.statistics.total_trades;
+          document.getElementById("win-rate").textContent =
+            status.statistics.win_rate.toFixed(1) + "%";
+          document.getElementById("open-positions").textContent =
+            status.positions;
+          document.getElementById("profit-factor").textContent =
+            status.statistics.profit_factor.toFixed(2);
+
+          // Update equity chart
+          const equityRes = await fetch("/api/equity");
+          const equityData = await equityRes.json();
+
+          if (equityData.length > 0) {
+            equityChart.data.labels = equityData.map((d) =>
+              new Date(d.timestamp).toLocaleTimeString()
+            );
+            equityChart.data.datasets[0].data = equityData.map((d) => d.equity);
+            equityChart.update();
+          }
+
+          // Update trades table and PnL chart
+          const tradesRes = await fetch("/api/trades");
+          const trades = await tradesRes.json();
+
+          if (trades.length > 0) {
+            // Update table
+            const tbody = document.getElementById("trades-body");
+            tbody.innerHTML = trades
+              .slice(-20)
+              .reverse()
+              .map(
+                (trade) => `
+                        <tr>
+                            <td>${new Date(
+                              trade.exit_timestamp || trade.entry_timestamp
+                            ).toLocaleString()}</td>
+                            <td><span class="${
+                              trade.side === "long" ? "positive" : "negative"
+                            }">${trade.side.toUpperCase()}</span></td>
+                            <td>$${trade.entry_price.toFixed(2)}</td>
+                            <td>$${trade.exit_price.toFixed(2)}</td>
+                            <td class="${
+                              trade.pnl >= 0 ? "positive" : "negative"
+                            }">$${trade.pnl.toFixed(2)}</td>
+                            <td class="${
+                              trade.return_percent >= 0
+                                ? "positive"
+                                : "negative"
+                            }">${trade.return_percent.toFixed(2)}%</td>
+                        </tr>
+                    `
+              )
+              .join("");
+
+            // Update PnL chart
+            pnlChart.data.labels = trades
+              .slice(-20)
+              .map((_, i) => "Trade " + (i + 1));
+            pnlChart.data.datasets[0].data = trades
+              .slice(-20)
+              .map((t) => t.pnl);
+            pnlChart.update();
+          }
+
+          // Update signal
+          const signalRes = await fetch("/api/signal");
+          const signal = await signalRes.json();
+
+          if (signal.signal) {
+            const signalCard = document.getElementById("signal-card");
+            signalCard.className = `signal-card signal-${signal.signal.toLowerCase()}`;
+
+            document.getElementById("signal-content").innerHTML = `
+                        <strong style="font-size: 24px;">${
+                          signal.signal
+                        }</strong>
+                        <br>
+                        <small>Confidence: ${(signal.confidence * 100).toFixed(
+                          1
+                        )}%</small>
+                        <br>
+                        <small>Time: ${new Date(
+                          signal.timestamp
+                        ).toLocaleString()}</small>
+                    `;
+          }
+        } catch (error) {
+          console.error("Error updating dashboard:", error);
+        }
+      }
+
+      // Initialize
+      initCharts();
+      updateDashboard();
+
+      // Auto-refresh every 5 seconds
+      setInterval(updateDashboard, 5000);
+    </script>
+  </body>
+</html>

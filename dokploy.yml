@@ -1,0 +1,51 @@
+# Dokploy Deployment Configuration
+# This file is used by Dokploy to configure the deployment
+
+# Build Configuration
+buildArgs:
+  - PYTHON_VERSION=3.10
+
+# Port Configuration
+ports:
+  - 5000:5000
+
+# Environment Variables (set these in Dokploy dashboard)
+# BITGET_API_KEY=your_api_key
+# BITGET_API_SECRET=your_api_secret
+# BITGET_PASSWORD=your_password
+# TELEGRAM_BOT_TOKEN=your_telegram_token
+# TELEGRAM_CHAT_ID=your_chat_id
+# TRADING_PAIR=SOL/USDT:USDT
+# INITIAL_CAPITAL=100
+# LEVERAGE=5
+# MODEL_TYPE=xgboost
+
+# Health Check
+healthCheck:
+  path: /api/status
+  port: 5000
+  interval: 30s
+  timeout: 10s
+  retries: 3
+
+# Resources
+resources:
+  limits:
+    cpus: "1.0"
+    memory: 1024M
+  reservations:
+    cpus: "0.5"
+    memory: 512M
+
+# Volumes (persistent storage)
+volumes:
+  - ./logs:/app/logs
+  - ./data:/app/data
+  - ./model:/app/model
+  - ./monitoring/dashboard_data.json:/app/monitoring/dashboard_data.json
+
+# Restart Policy
+restart: unless-stopped
+# Custom Domain (optional)
+# domains:
+#   - bot.yourdomain.com

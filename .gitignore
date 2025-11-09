@@ -1,0 +1,100 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Logs
+logs/*.log
+*.log
+logs/systemd.log
+logs/systemd_error.log
+
+# Data
+data/*.csv
+data/*.json
+data/*.pkl
+data/raw_data_*
+data/processed_data_*
+
+# Models
+model/*.pkl
+model/*.h5
+model/*.pt
+model/*.joblib
+model/xgboost_*
+model/random_forest_*
+model/logistic_*
+
+# Backtest results
+backtest/*.png
+backtest/*.jpg
+backtest/backtest_results*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Monitoring
+monitoring/*.html
+monitoring/*.json

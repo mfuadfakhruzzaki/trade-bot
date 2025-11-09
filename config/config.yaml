@@ -1,0 +1,91 @@
+# Bot Configuration File
+
+# Exchange Configuration
+exchange:
+  name: bitget
+  type: futures
+  testnet: true
+
+# Trading Configuration
+trading:
+  pair: SOL/USDT:USDT
+  initial_capital: 100
+  leverage: 5
+  interval: 300 # seconds (5 minutes)
+
+# Risk Management
+risk_management:
+  risk_per_trade: 2 # percentage
+  max_loss_per_day: 10 # percentage
+  max_open_positions: 3
+  cooldown_period: 600 # seconds (10 minutes after loss)
+  stop_loss_percent: 2.0
+  take_profit_percent: 4.0
+  trailing_stop: false
+  trailing_stop_percent: 1.5
+
+# AI Model Configuration
+ai_model:
+  type: xgboost # options: logistic, random_forest, xgboost, lstm
+  confidence_threshold: 0.60
+  retrain_interval: 86400 # seconds (daily)
+  training_data_days: 30
+
+# Technical Indicators
+indicators:
+  moving_averages:
+    - period: 7
+      type: EMA
+    - period: 25
+      type: EMA
+    - period: 99
+      type: SMA
+
+  rsi:
+    period: 14
+    overbought: 70
+    oversold: 30
+
+  macd:
+    fast: 12
+    slow: 26
+    signal: 9
+
+  bollinger_bands:
+    period: 20
+    std: 2
+
+  volume_ma:
+    period: 20
+
+# Data Collection
+data_collection:
+  ohlcv_timeframe: 5m
+  historical_bars: 1000
+  orderbook_depth: 20
+  save_historical: true
+
+# Logging & Monitoring
+logging:
+  level: INFO # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file_rotation: daily
+  max_file_size: 10 # MB
+  backup_count: 30 # days
+
+# Notifications
+notifications:
+  telegram:
+    enabled: true
+    on_trade: true
+    on_error: true
+    daily_summary: true
+
+  email:
+    enabled: false
+
+# Backtesting
+backtesting:
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  commission: 0.0006 # 0.06% (maker/taker fee)
+  slippage: 0.0001 # 0.01%
