@@ -1,6 +1,13 @@
 # AI Trading Bot - Bitget SOLUSDT Futures
 
+[![GitHub](https://img.shields.io/github/license/mfuadfakhruzzaki/trade-bot)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Docker](https://img.shields.io/badge/docker-ready-brightgreen.svg)](Dockerfile)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 Bot trading otomatis berbasis AI untuk Bitget SOLUSDT Futures dengan modal kecil dan scalable.
+
+**Repository**: [github.com/mfuadfakhruzzaki/trade-bot](https://github.com/mfuadfakhruzzaki/trade-bot)
 
 ## 🚀 Features
 
