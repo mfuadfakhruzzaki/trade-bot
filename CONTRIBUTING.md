@@ -7,6 +7,7 @@ Thank you for considering contributing to this project! 🎉
 ### Reporting Bugs
 
 If you find a bug, please create an issue with:
+
 - Clear description of the bug
 - Steps to reproduce
 - Expected vs actual behavior
@@ -16,6 +17,7 @@ If you find a bug, please create an issue with:
 ### Suggesting Enhancements
 
 Enhancement suggestions are welcome! Please:
+
 - Check if the enhancement is already suggested
 - Clearly describe the feature and its benefits
 - Explain your use case
@@ -23,6 +25,7 @@ Enhancement suggestions are welcome! Please:
 ### Code Contributions
 
 1. **Fork the Repository**
+
    ```bash
    # Click "Fork" on GitHub
    git clone https://github.com/YOUR_USERNAME/trade-bot.git
@@ -30,28 +33,32 @@ Enhancement suggestions are welcome! Please:
    ```
 
 2. **Create a Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 3. **Make Changes**
+
    - Follow existing code style
    - Add comments for complex logic
    - Update documentation if needed
 
 4. **Test Your Changes**
+
    ```bash
    # Run tests
    ./test_modules.sh
-   
+
    # Test with dry-run
    python main.py --dry-run
-   
+
    # Test Docker build
    docker build -t trading-bot:test .
    ```
 
 5. **Commit and Push**
+
    ```bash
    git add .
    git commit -m "Add: description of your changes"
@@ -74,6 +81,7 @@ Enhancement suggestions are welcome! Please:
 ## Areas for Contribution
 
 ### High Priority
+
 - [ ] LSTM model implementation
 - [ ] Multiple trading pairs support
 - [ ] Advanced order types (OCO, trailing stop)
@@ -81,6 +89,7 @@ Enhancement suggestions are welcome! Please:
 - [ ] More technical indicators
 
 ### Medium Priority
+
 - [ ] Web UI for configuration
 - [ ] Trade execution controls in dashboard
 - [ ] Email notifications
@@ -88,6 +97,7 @@ Enhancement suggestions are welcome! Please:
 - [ ] RESTful API for external integrations
 
 ### Documentation
+
 - [ ] Video tutorials
 - [ ] More examples and use cases
 - [ ] API documentation
@@ -105,6 +115,7 @@ Enhancement suggestions are welcome! Please:
 ## Questions?
 
 Feel free to:
+
 - Open an issue for discussion
 - Join our community (if applicable)
 - Email the maintainers

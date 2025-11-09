@@ -13,6 +13,7 @@
 ## 📦 What's Included
 
 ### 📊 Core Project (39 files)
+
 - **8 Trading Modules**: Complete bot implementation
 - **Web Dashboard**: Real-time monitoring interface
 - **Docker Support**: Full containerization
@@ -20,6 +21,7 @@
 - **Complete Documentation**: 13 markdown files
 
 ### 🔧 GitHub Extras (4 files)
+
 - **LICENSE**: MIT License with trading disclaimer
 - **CONTRIBUTING.md**: Contribution guidelines
 - **SECURITY.md**: Security best practices
@@ -109,6 +111,7 @@ git push origin feature/your-feature
 ### For DevOps - Deploy
 
 **Option 1: Dokploy**
+
 ```bash
 # Connect repository in Dokploy dashboard
 # Set environment variables
@@ -116,6 +119,7 @@ git push origin feature/your-feature
 ```
 
 **Option 2: Docker**
+
 ```bash
 git clone https://github.com/mfuadfakhruzzaki/trade-bot.git
 cd trade-bot
@@ -123,6 +127,7 @@ docker-compose up -d
 ```
 
 **Option 3: VPS**
+
 ```bash
 git clone https://github.com/mfuadfakhruzzaki/trade-bot.git
 cd trade-bot
@@ -140,24 +145,28 @@ cd trade-bot
 ## 🌟 Key Features
 
 1. ✅ **Complete Trading Bot**
+
    - 8 core modules
    - AI-powered predictions
    - Risk management
    - Real-time execution
 
 2. ✅ **Web Dashboard**
+
    - Real-time monitoring
    - Interactive charts
    - Trade history
    - Performance metrics
 
 3. ✅ **Multiple Deployment Options**
+
    - Local development
    - Docker containers
    - Dokploy PaaS
    - VPS/Server
 
 4. ✅ **Comprehensive Documentation**
+
    - Beginner-friendly guides
    - Advanced workflows
    - Deployment instructions
@@ -173,18 +182,18 @@ cd trade-bot
 
 All documentation is in the repository:
 
-| File | Description | Audience |
-|------|-------------|----------|
-| [README.md](README.md) | Main documentation | Everyone |
-| [QUICKSTART.md](QUICKSTART.md) | 5-minute setup | Beginners |
-| [DASHBOARD.md](DASHBOARD.md) | Dashboard guide | Users |
-| [USAGE_GUIDE.md](USAGE_GUIDE.md) | Complete workflows | Active users |
-| [DOKPLOY_DEPLOYMENT.md](DOKPLOY_DEPLOYMENT.md) | Full Dokploy guide | DevOps |
-| [DOKPLOY_QUICKSTART.md](DOKPLOY_QUICKSTART.md) | Quick deploy | DevOps |
-| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Project overview | Everyone |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute | Developers |
-| [SECURITY.md](SECURITY.md) | Security practices | DevOps |
-| [LICENSE](LICENSE) | MIT License | Legal |
+| File                                           | Description        | Audience     |
+| ---------------------------------------------- | ------------------ | ------------ |
+| [README.md](README.md)                         | Main documentation | Everyone     |
+| [QUICKSTART.md](QUICKSTART.md)                 | 5-minute setup     | Beginners    |
+| [DASHBOARD.md](DASHBOARD.md)                   | Dashboard guide    | Users        |
+| [USAGE_GUIDE.md](USAGE_GUIDE.md)               | Complete workflows | Active users |
+| [DOKPLOY_DEPLOYMENT.md](DOKPLOY_DEPLOYMENT.md) | Full Dokploy guide | DevOps       |
+| [DOKPLOY_QUICKSTART.md](DOKPLOY_QUICKSTART.md) | Quick deploy       | DevOps       |
+| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)       | Project overview   | Everyone     |
+| [CONTRIBUTING.md](CONTRIBUTING.md)             | How to contribute  | Developers   |
+| [SECURITY.md](SECURITY.md)                     | Security practices | DevOps       |
+| [LICENSE](LICENSE)                             | MIT License        | Legal        |
 
 ## 🔗 Important Links
 
@@ -198,6 +207,7 @@ All documentation is in the repository:
 ### For Repository Owner
 
 1. **Add Topics/Tags** on GitHub:
+
    - trading-bot
    - cryptocurrency
    - machine-learning
@@ -211,6 +221,7 @@ All documentation is in the repository:
    "AI-powered trading bot for Bitget Futures with web dashboard, multiple ML models, and Docker/Dokploy deployment support"
 
 3. **Create First Release**:
+
    - Tag: v1.0.0
    - Title: "Initial Release - Complete Trading Bot"
    - Add release notes
@@ -237,7 +248,8 @@ All documentation is in the repository:
 - ✅ Security best practices documented
 - ✅ MIT License with disclaimer included
 
-**Remember**: 
+**Remember**:
+
 - Never commit API keys
 - Always use environment variables
 - Review SECURITY.md before deploying
@@ -270,6 +282,7 @@ Ways to get involved:
 ## 🙏 Acknowledgments
 
 Built with:
+
 - Python 3.10+
 - ccxt (Exchange API)
 - scikit-learn, XGBoost (ML)

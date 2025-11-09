@@ -17,6 +17,7 @@ We will respond within 48 hours and work with you to address the issue.
 ## Secure Configuration
 
 ### API Keys
+
 - **NEVER** commit `.env` file to git
 - Use environment variables for all credentials
 - Rotate API keys regularly
@@ -24,6 +25,7 @@ We will respond within 48 hours and work with you to address the issue.
 - Enable IP whitelist on exchange if possible
 
 ### Dashboard Access
+
 - Add authentication in production
 - Use HTTPS/SSL for remote access
 - Restrict access by IP if possible
@@ -31,6 +33,7 @@ We will respond within 48 hours and work with you to address the issue.
 - Enable rate limiting
 
 ### Deployment
+
 - Keep dependencies updated
 - Use latest stable versions
 - Enable firewall rules
@@ -40,6 +43,7 @@ We will respond within 48 hours and work with you to address the issue.
 ## Best Practices
 
 ### API Security
+
 ```python
 # Good ✅
 api_key = os.getenv('BITGET_API_KEY')
@@ -49,6 +53,7 @@ api_key = "your_actual_key_here"
 ```
 
 ### Password Protection
+
 ```python
 # For production dashboard
 from flask_httpauth import HTTPBasicAuth
@@ -61,6 +66,7 @@ def dashboard():
 ```
 
 ### Secure Communication
+
 - Always use HTTPS in production
 - Enable SSL/TLS certificates
 - Use secure WebSocket (WSS) if implemented
@@ -105,6 +111,7 @@ pip install --upgrade -r requirements.txt
 ```
 
 Monitor security advisories for:
+
 - ccxt
 - Flask
 - scikit-learn
@@ -116,6 +123,7 @@ Monitor security advisories for:
 ## Disclosure Policy
 
 We follow responsible disclosure:
+
 1. Report received
 2. Acknowledgment within 48 hours
 3. Investigation and fix developed
